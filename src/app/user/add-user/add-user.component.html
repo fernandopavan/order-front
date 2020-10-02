@@ -1,0 +1,149 @@
+<div class="create-page">
+  <mat-toolbar>
+    <span>Adicionando pessoa física</span>
+  </mat-toolbar>
+
+  <div class="page-content">
+    <div class="row">
+      <div class="col-md-3">
+        <img class="img-avatar" src="https://s3.amazonaws.com/uifaces/faces/twitter/adellecharles/128.jpg">
+      </div>
+
+      <div class="col-md-9">
+        <form class="create-form" [formGroup]="addForm" novalidate (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class="col-md-5">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Nome completo" class="form-control" formControlName="nome">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.nome">
+                  <mat-error
+                    *ngIf="addForm.get('nome').hasError(validation.type) && (addForm.get('nome').dirty || addForm.get('nome').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="E-mail" type="email" class="form-control" formControlName="email">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-3">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="CPF" type="number" class="form-control" formControlName="cpf">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.cpf">
+                  <mat-error
+                    *ngIf="addForm.get('cpf').hasError(validation.type) && (addForm.get('cpf').dirty || addForm.get('cpf').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <mat-select placeholder="Sexo" class="form-control" formControlName="sexo">
+                    <mat-option value="0">Masculinho</mat-option>
+                    <mat-option value="1">Feminino</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Naturalidade" class="form-control" formControlName="naturalidade">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.naturalidade">
+                  <mat-error
+                    *ngIf="addForm.get('naturalidade').hasError(validation.type) && (addForm.get('naturalidade').dirty || addForm.get('naturalidade').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Nacionalidade" class="form-control" formControlName="nacionalidade">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.nacionalidade">
+                  <mat-error
+                    *ngIf="addForm.get('nacionalidade').hasError(validation.type) && (addForm.get('nacionalidade').dirty || addForm.get('nacionalidade').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style" color="accent">
+                  <mat-label>Data nascimento</mat-label>
+                  <input formControlName="dataNascimento" matInput [matDatepicker]="myPicker"
+                    placeholder="Data nascimento" [min]="minDate" class="form-control">
+                  <mat-datepicker-toggle matSuffix [for]="myPicker"></mat-datepicker-toggle>
+                  <mat-datepicker #myPicker></mat-datepicker>
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.dataNascimento">
+                  <mat-error
+                    *ngIf="addForm.get('dataNascimento').hasError(validation.type) && (addForm.get('dataNascimento').dirty || addForm.get('dataNascimento').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput type="password" placeholder="Senha" class="form-control" formControlName="senha">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.senha">
+                  <mat-error
+                    *ngIf="addForm.get('senha').hasError(validation.type) && (addForm.get('senha').dirty || addForm.get('senha').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <mat-select placeholder="Perfis" multiple class="form-control" formControlName="perfis">
+                    <mat-option value="0">Administrador</mat-option>
+                    <mat-option value="1">Pessoal</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.perfis">
+                  <mat-error
+                    *ngIf="addForm.get('perfis').hasError(validation.type) && (addForm.get('perfis').dirty || addForm.get('perfis').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+
+          <div class="row submit-button-container">
+            <div class="col-md-4">
+              <button mat-raised-button class="submit-button" color="primary" type="submit"
+                [disabled]="!addForm.valid">Salvar</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

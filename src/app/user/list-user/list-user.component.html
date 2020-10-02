@@ -1,0 +1,43 @@
+<div class="list-group users-list">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"
+          placeholder="Busque pelo nome..." (keydown.enter)="searchByName()">
+        <div class="input-group-append" (click)="searchByName()">
+          <span class="input-group-text">
+            <ion-icon class="icon" name="search"></ion-icon>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div *ngFor="let pessoaFisica of pessoasFisicas"
+    class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col col-md-2 image-col">
+        <img class="image" src="https://s3.amazonaws.com/uifaces/faces/twitter/adellecharles/128.jpg">
+      </div>
+      <div class="col col-md-8 text-col">
+        <h5 class="mb-1">{{pessoaFisica.nome}} - {{pessoaFisica.sexo}}</h5>
+        <small>E-mail: {{pessoaFisica.email}}</small>
+      </div>
+      <div class="col col-md-2 actions-col">
+        <button class="btn btn-outline-primary action" (click)="viewDetails(pessoaFisica)" type="button">
+          <ion-icon class="icon" name="arrow-round-forward"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nav aria-label="...">
+    <ul style="margin-top:10px;" class="pagination" *ngIf="pessoasFisicas.length>0">
+      <li *ngFor="let page of ' '.repeat(pagePessoaFisica.totalPages).split(''), let i = index " (click)="onSelect(i)"
+        [class.active]="i === selectedPage" class="page-item"><button class="page-link" >{{i+1}}</button></li>
+    </ul>
+  </nav>
+
+</div>

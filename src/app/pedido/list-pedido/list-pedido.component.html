@@ -1,0 +1,40 @@
+<div class="list-group users-list">
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="input-group">
+        <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"
+          placeholder="Busque pela descrição..." (keydown.enter)="searchBy()">
+
+        <div class="input-group-append" (click)="searchBy()">
+          <span class="input-group-text">
+            <ion-icon class="icon" name="search"></ion-icon>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div *ngFor="let pedido of pedidos" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col col-md-9 text-col">
+        <h5 class="mb-1">{{pedido.descricao}} - {{pedido.dataHora}}</h5>
+        <small>Valor total: {{pedido.valorTotal}}  - Desconto: {{pedido.desconto}}</small>
+      </div>
+      <div class="col col-md-3 actions-col">
+        <button class="btn btn-outline-primary action" (click)="viewDetails(pedido)" type="button">
+          <ion-icon class="icon" name="arrow-round-forward"></ion-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <nav aria-label="...">
+    <ul style="margin-top:10px;" class="pagination" *ngIf="pedidos.length>0">
+      <li *ngFor="let page of ' '.repeat(pagePedido.totalPages).split(''), let i = index " (click)="onSelect(i)"
+        [class.active]="i === selectedPage" class="page-item"><button class="page-link">{{i+1}}</button></li>
+    </ul>
+  </nav>
+
+</div>

@@ -1,0 +1,58 @@
+<div class="edit-page">
+  <mat-toolbar>
+    <span>Editando pedido</span>
+  </mat-toolbar>
+
+  <div class="page-content">
+    <div class="row">
+
+      <div class="col-md-12">
+        <form class="edit-form" [formGroup]="editForm" novalidate (ngSubmit)="onSubmit()">
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Descrição" class="form-control" formControlName="descricao">
+                </mat-form-field>
+                <ng-container *ngFor="let validation of validationMessages.descricao">
+                  <mat-error
+                    *ngIf="addForm.get('descricao').hasError(validation.type) && (addForm.get('descricao').dirty || addForm.get('descricao').touched)">
+                    {{validation.message}}</mat-error>
+                </ng-container>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="form-group">
+                <mat-form-field class="input-style">
+                  <input matInput placeholder="Preço" type="number" class="form-control" formControlName="desconto">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <mat-checkbox class="input-style" formControlName="fechado">Fechado?</mat-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="row submit-button-container">
+            <div class="col-md-4">
+              <button mat-raised-button class="submit-button" color="primary" type="submit"
+                [disabled]="!editForm.valid">Salvar</button>
+            </div>
+            <div class="col-md-4">
+              <button mat-raised-button class="delete-button" color="warn" type="button"
+                (click)="delete()">Excluir</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
