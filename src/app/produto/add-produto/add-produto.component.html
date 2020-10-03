@@ -38,26 +38,35 @@
           </div>
 
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-group">
-                <mat-checkbox class="input-style" formControlName="servico">É serviço?</mat-checkbox>
+                <label for="servico">
+                  <input id="servico" type="checkbox" class="input-style" formControlName="servico">
+                  É serviço?</label>
               </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-group">
-                <mat-checkbox class="input-style" formControlName="inativo">Inativo?</mat-checkbox>
+                <label for="inativo">
+                  <input id="inativo" type="checkbox" class="input-style" formControlName="inativo">
+                  Inativo?</label>
               </div>
             </div>
           </div>
 
           <div class="row submit-button-container">
             <div class="col-md-4">
+              <button mat-raised-button class="submit-button" type="button" color="basic" (click)="back()">
+                <ion-icon name="home"></ion-icon> Cancelar
+              </button>
+            </div>
+            <div class="col-md-4">
               <button mat-raised-button class="submit-button" color="primary" type="submit"
                 [disabled]="!addForm.valid">Salvar</button>
             </div>
           </div>
-
+          
         </form>
       </div>
     </div>

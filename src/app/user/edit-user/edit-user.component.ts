@@ -23,7 +23,6 @@ export class EditUserComponent implements OnInit {
 
   pessoaFisica: PessoaFisica;
   editForm: FormGroup;
-  minDate = new Date(1900, 1, 1);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,17 +36,8 @@ export class EditUserComponent implements OnInit {
     nome: [
       { type: 'required', message: 'Nome é obrigatório.' }
     ],
-    dataNascimento: [
-      { type: 'required', message: 'Data nascimento é obrigatório.' },
-    ],
-    naturalidade: [
-      { type: 'maxlength', message: 'Naturalizade deve possuir no máximo 50 caracteres.' },
-    ],
-    nacionalidade: [
-      { type: 'maxlength', message: 'Naturalizade deve possuir no máximo 50 caracteres.' },
-    ],
-    cpf: [
-      { type: 'required', message: 'CPF é obrigatório.' },
+    email: [
+      { type: 'required', message: 'E-mail é obrigatório.' },
     ],
     perfis: [
       { type: 'required', message: 'É obrigatório selecionar um tipo de perfil.' },
@@ -66,7 +56,6 @@ export class EditUserComponent implements OnInit {
   }
 
   createForm() {
-    const sexo = this.pessoaFisica.sexo === 'MASCULINO' ? '0' : '1';
     let perfis = this.pessoaFisica.perfis.includes('ADMIN') ? ['0'] : ['1'];
     if (this.pessoaFisica.perfis.includes('ADMIN') && this.pessoaFisica.perfis.includes('PESSOA_FISICA')) {
       perfis = ['0', '1'];
@@ -75,25 +64,19 @@ export class EditUserComponent implements OnInit {
     this.editForm = this.formBuilder.group({
       id: [this.pessoaFisica.id],
       nome: [this.pessoaFisica.nome, Validators.required],
-      sexo: [sexo],
-      email: [this.pessoaFisica.email],
-      dataNascimento: [this.pessoaFisica.dataNascimento, Validators.required],
-      naturalidade: [this.pessoaFisica.naturalidade],
-      nacionalidade: [this.pessoaFisica.nacionalidade],
-      cpf: [this.pessoaFisica.cpf, Validators.required],
+      email: [this.pessoaFisica.email, Validators.required],
       senha: [{ value: '***', disabled: true }],
       perfis: [perfis, Validators.required]
     });
   }
 
   onSubmit() {
-    this.editForm.value.dataNascimento = new Date(this.editForm.value.dataNascimento).toISOString().slice(0, 10);
     this.editForm.value.senha = this.pessoaFisica.senha;
     this.pessoaFisicaService.update(this.editForm.value)
       .pipe(first())
       .subscribe(response => {
         Swal.fire('Sucesso!', 'Pessoa física atualizada', 'success');
-        this.router.navigate(['list-user']);
+        this.router.navigate(['list-users']);
       },
         error => { });
   }
@@ -112,7 +95,7 @@ export class EditUserComponent implements OnInit {
         this.pessoaFisicaService.delete(this.pessoaFisica.id)
           .subscribe(
             response => {
-              this.router.navigate(['/list-user']);
+              this.router.navigate(['/list-users']);
               Swal.fire('Sucesso!', 'Pessoa física removida', 'success');
             },
             err => {
@@ -125,6 +108,6 @@ export class EditUserComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/list-user']);
+    this.router.navigate(['/list-users']);
   }
 }

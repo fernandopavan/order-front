@@ -1,6 +1,6 @@
 import { Produto } from './produto';
 
-export interface ProdutoPage {
+export class ProdutoPage {
     content: Produto[];
     totalPages: number;
     totalElements: number;

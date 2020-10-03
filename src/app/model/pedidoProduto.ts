@@ -1,7 +1,8 @@
 import { Produto } from './produto';
 import { Pedido } from './pedido';
 
-export interface PedidoProduto {
+export class PedidoProduto {
+
     id: number;
     produto: Produto;
     pedido: Pedido;

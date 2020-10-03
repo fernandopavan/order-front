@@ -17,7 +17,7 @@
                 </mat-form-field>
                 <ng-container *ngFor="let validation of validationMessages.descricao">
                   <mat-error
-                    *ngIf="addForm.get('descricao').hasError(validation.type) && (addForm.get('descricao').dirty || addForm.get('descricao').touched)">
+                    *ngIf="editForm.get('descricao').hasError(validation.type) && (editForm.get('descricao').dirty || editForm.get('descricao').touched)">
                     {{validation.message}}</mat-error>
                 </ng-container>
               </div>
@@ -30,7 +30,7 @@
                 </mat-form-field>
                 <ng-container *ngFor="let validation of validationMessages.preco">
                   <mat-error
-                    *ngIf="addForm.get('preco').hasError(validation.type) && (addForm.get('preco').dirty || addForm.get('preco').touched)">
+                    *ngIf="editForm.get('preco').hasError(validation.type) && (editForm.get('preco').dirty || editForm.get('preco').touched)">
                     {{validation.message}}</mat-error>
                 </ng-container>
               </div>
@@ -38,20 +38,29 @@
           </div>
 
           <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-group">
-                <mat-checkbox class="input-style" formControlName="servico">É serviço?</mat-checkbox>
+                <label for="servico">
+                  <input id="servico" type="checkbox" class="input-style" formControlName="servico">
+                  É serviço?</label>
               </div>
             </div>
 
-            <div class="col-md-3">
+            <div class="col-md-2">
               <div class="form-group">
-                <mat-checkbox class="input-style" formControlName="inativo">Inativo?</mat-checkbox>
+                <label for="inativo">
+                  <input id="inativo" type="checkbox" class="input-style" formControlName="inativo">
+                  Inativo?</label>
               </div>
             </div>
           </div>
 
           <div class="row submit-button-container">
+            <div class="col-md-4">
+              <button mat-raised-button class="submit-button" type="button" color="basic" (click)="cancel()">
+                <ion-icon name="home"></ion-icon> Cancelar
+              </button>
+            </div>
             <div class="col-md-4">
               <button mat-raised-button class="submit-button" color="primary" type="submit"
                 [disabled]="!editForm.valid">Salvar</button>
@@ -61,7 +70,6 @@
                 (click)="delete()">Excluir</button>
             </div>
           </div>
-
         </form>
       </div>
     </div>

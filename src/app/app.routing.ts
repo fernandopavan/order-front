@@ -28,15 +28,15 @@ const routes: Routes = [
     runGuardsAndResolvers: 'always'
   },
   { path: 'add-user', component: AddUserComponent },
-  { path: 'list-user', component: ListUserComponent },
+  { path: 'list-users', component: ListUserComponent },
   { path: 'edit-user/:id', component: EditUserComponent, resolve: { data: EditUserResolver } },
 
   { path: 'add-pedido', component: AddPedidoComponent },
-  { path: 'list-pedido', component: ListPedidoComponent },
+  { path: 'list-pedidos', component: ListPedidoComponent },
   { path: 'edit-pedido/:id', component: EditPedidoComponent, resolve: { data: EditPedidoResolver } },
 
   { path: 'add-produto', component: AddProdutoComponent },
-  { path: 'list-produto', component: ListProdutoComponent },
+  { path: 'list-produtos', component: ListProdutoComponent },
   { path: 'edit-produto/:id', component: EditProdutoComponent, resolve: { data: EditProdutoResolver } }
 ];
 

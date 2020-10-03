@@ -7,6 +7,9 @@ import Swal from 'sweetalert2';
 import { CustomDateAdapter } from 'src/app/custom.date.adapter';
 import { Platform } from '@angular/cdk/platform';
 
+import { Produto } from '../../model/produto';
+import { PedidoProduto } from '../../model/PedidoProduto';
+
 @Component({
   selector: 'app-add-pedido',
   templateUrl: './add-pedido.component.html',
@@ -25,6 +28,15 @@ export class AddPedidoComponent implements OnInit {
     public dialog: MatDialog,
     private pedidoService: PedidoService) { }
 
+  produtos: Produto[] = [
+      {id: 1, descricao: "teste1", preco: 12.1, servico: true, inativo: false },
+      {id: 3, descricao: "teste3", preco: 12.4, servico: true, inativo: false },
+      {id: 2, descricao: "teste2", preco: 12.3, servico: true, inativo: false }
+  ];
+
+  quantidade: number;
+  produto: Produto;
+  pedidoProdutos: PedidoProduto[] = [];
   addForm: FormGroup;
 
   validationMessages = {
@@ -38,13 +50,27 @@ export class AddPedidoComponent implements OnInit {
     this.createForm();
   }
 
-  onSubmit() {
+  onSubmit() {    
+    this.addForm.value.pedidoProdutos.push(this.pedidoProdutos);
     this.pedidoService.create(this.addForm.value)
       .subscribe(data => {
         this.resetFields();
         Swal.fire('Sucesso!', 'Pedido criado', 'success');
-        this.router.navigate(['list-pedido']);
+        this.router.navigate(['list-pedidos']);
       });
+  }
+
+  addProduto() {
+    let pedidoProduto = new PedidoProduto();
+    pedidoProduto.produto = this.produto;
+    pedidoProduto.quantidade = this.quantidade;     
+    this.pedidoProdutos.push(pedidoProduto);
+    this.produto = null;
+    this.quantidade = 0; 
+  }
+
+  back() {
+    this.router.navigate(['/list-pedidos']);
   }
 
   createForm() {
@@ -52,7 +78,7 @@ export class AddPedidoComponent implements OnInit {
       descricao: ['', Validators.required],
       desconto: [''],
       fechado: [''],
-      pedidoProdutos: []
+      pedidoProdutos: [[]]
     });
   }
 

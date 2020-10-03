@@ -46,8 +46,12 @@ export class AddProdutoComponent implements OnInit {
       .subscribe(data => {
         this.resetFields();
         Swal.fire('Sucesso!', 'Produto criado', 'success');
-        this.router.navigate(['list-produto']);
+        this.router.navigate(['list-produtos']);
       });
+  }
+
+  back() {
+    this.router.navigate(['/list-produtos']);
   }
 
   createForm() {

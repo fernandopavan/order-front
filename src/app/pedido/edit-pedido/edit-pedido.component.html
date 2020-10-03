@@ -17,7 +17,7 @@
                 </mat-form-field>
                 <ng-container *ngFor="let validation of validationMessages.descricao">
                   <mat-error
-                    *ngIf="addForm.get('descricao').hasError(validation.type) && (addForm.get('descricao').dirty || addForm.get('descricao').touched)">
+                    *ngIf="editForm.get('descricao').hasError(validation.type) && (editForm.get('descricao').dirty || editForm.get('descricao').touched)">
                     {{validation.message}}</mat-error>
                 </ng-container>
               </div>
@@ -26,7 +26,7 @@
             <div class="col-md-4">
               <div class="form-group">
                 <mat-form-field class="input-style">
-                  <input matInput placeholder="Preço" type="number" class="form-control" formControlName="desconto">
+                  <input matInput placeholder="Desconto %" type="number" class="form-control" formControlName="desconto">
                 </mat-form-field>
               </div>
             </div>
@@ -35,12 +35,19 @@
           <div class="row">
             <div class="col-md-3">
               <div class="form-group">
-                <mat-checkbox class="input-style" formControlName="fechado">Fechado?</mat-checkbox>
+                <label for="fechado">
+                  <input id="fechado" type="checkbox" class="input-style" formControlName="fechado">
+                  Fechado?</label>
               </div>
             </div>
           </div>
 
           <div class="row submit-button-container">
+            <div class="col-md-4">
+              <button mat-raised-button class="submit-button" type="button" color="basic" (click)="cancel()">
+                <ion-icon name="home"></ion-icon> Cancelar
+              </button>
+            </div>
             <div class="col-md-4">
               <button mat-raised-button class="submit-button" color="primary" type="submit"
                 [disabled]="!editForm.valid">Salvar</button>

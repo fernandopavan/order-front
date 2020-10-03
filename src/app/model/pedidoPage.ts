@@ -1,6 +1,6 @@
 import { Pedido } from './pedido';
 
-export interface PedidoPage {
+export class PedidoPage {
     content: Pedido[];
     totalPages: number;
     totalElements: number;

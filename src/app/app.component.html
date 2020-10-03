@@ -2,28 +2,22 @@
   <div class="side-bar">
     <ul class="nav flex-column">
       <li class="nav-item">
-        <a class="nav-link active" *ngIf="hasPermition" routerLink="list-user">
+        <a class="nav-link active" *ngIf="hasPermition" routerLink="list-users">
           <ion-icon name="people"></ion-icon>
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" *ngIf="hasPermition" routerLink="add-user">
-          <ion-icon name="add"></ion-icon>
-        </a>
-      </li>
-
 
       <li class="nav-item">
         <a class="nav-link" *ngIf="hasPermition" routerLink="list-produtos">
-          <ion-icon name="people"></ion-icon>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" *ngIf="hasPermition" routerLink="list-pedidos">
-          <ion-icon name="people"></ion-icon>
+          <ion-icon name="md-cube"></ion-icon>
         </a>
       </li>
 
+      <li class="nav-item">
+        <a class="nav-link" *ngIf="hasPermition" routerLink="list-pedidos">
+          <ion-icon name="md-cart"></ion-icon>
+        </a>
+      </li>
 
       <li class="nav-item">
         <a class="nav-link" *ngIf="hasPermition" href (click)="logout()">

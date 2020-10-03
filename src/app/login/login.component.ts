@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.auth.refreshToken()
       .subscribe(response => {
         this.auth.successfulLogin(response.headers.get('Authorization'));
-        this.router.navigate(['list-user']);
+        this.router.navigate(['list-users']);
       },
         error => { });
   }
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.auth.authenticate(this.loginForm.value)
       .subscribe(response => {
         this.auth.successfulLogin(response.headers.get('Authorization'));
-        this.router.navigate(['list-user']);
+        this.router.navigate(['list-users']);
         Swal.fire('Bem-vindo', 'Login feito com sucesso!', 'success');
       },
         error => {

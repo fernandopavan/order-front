@@ -26,24 +26,13 @@ export class AddUserComponent implements OnInit {
     private pessoaFisicaService: PessoaFisicaService) { }
 
   addForm: FormGroup;
-  minDate = new Date(1900, 1, 1);
-  date: any;
 
   validationMessages = {
     nome: [
       { type: 'required', message: 'Nome é obrigatório.' }
     ],
-    dataNascimento: [
-      { type: 'required', message: 'Data nascimento é obrigatório.' },
-    ],
-    naturalidade: [
-      { type: 'maxlength', message: 'Naturalizade deve possuir no máximo 50 caracteres.' },
-    ],
-    nacionalidade: [
-      { type: 'maxlength', message: 'Naturalizade deve possuir no máximo 50 caracteres.' },
-    ],
-    cpf: [
-      { type: 'required', message: 'CPF é obrigatório. Somente Nº' },
+    email: [
+      { type: 'required', message: 'E-mail é obrigatório.' },
     ],
     senha: [
       { type: 'required', message: 'Senha é obrigatória.' },
@@ -58,24 +47,22 @@ export class AddUserComponent implements OnInit {
   }
 
   onSubmit() {
-    this.addForm.value.dataNascimento = new Date(this.addForm.value.dataNascimento).toISOString().slice(0, 10);
     this.pessoaFisicaService.create(this.addForm.value)
       .subscribe(data => {
         this.resetFields();
         Swal.fire('Sucesso!', 'Pessoa física criada', 'success');
-        this.router.navigate(['list-user']);
+        this.router.navigate(['list-users']);
       });
+  }
+
+  back() {
+    this.router.navigate(['/list-users']);
   }
 
   createForm() {
     this.addForm = this.formBuilder.group({
       nome: ['', Validators.required],
-      sexo: [''],
-      email: [''],
-      dataNascimento: ['', Validators.required],
-      naturalidade: [''],
-      nacionalidade: [''],
-      cpf: ['', Validators.required],
+      email: ['', Validators.required],
       senha: ['', Validators.required],
       perfis: ['', Validators.required]
     });
@@ -84,12 +71,7 @@ export class AddUserComponent implements OnInit {
   resetFields() {
     this.addForm = this.formBuilder.group({
       nome: new FormControl('', Validators.required),
-      sexo: new FormControl(''),
-      email: new FormControl(''),
-      dataNascimento: new FormControl('', Validators.required),
-      naturalidade: new FormControl(''),
-      nacionalidade: new FormControl(''),
-      cpf: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
       senha: new FormControl('', Validators.required),
       perfis: new FormControl('', Validators.required),
     });

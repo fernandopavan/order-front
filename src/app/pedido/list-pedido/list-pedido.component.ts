@@ -29,6 +29,10 @@ export class ListPedidoComponent implements OnInit {
     this.router.navigate(['/edit-pedido/' + item.id]);
   }
 
+  add() {
+    this.router.navigate(['/add-pedido']);
+  }
+
   searchBy() {
     // let value = this.searchValue.toLowerCase();
     if (this.searchValue == null) {

@@ -29,6 +29,10 @@ export class ListUserComponent implements OnInit {
     this.router.navigate(['/edit-user/' + item.id]);
   }
 
+  add() {
+    this.router.navigate(['/add-user']);
+  }
+
   searchByName() {
     // let value = this.searchValue.toLowerCase();
     if (this.searchValue == null) {

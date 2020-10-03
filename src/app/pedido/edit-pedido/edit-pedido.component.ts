@@ -65,7 +65,7 @@ export class EditPedidoComponent implements OnInit {
       .pipe(first())
       .subscribe(response => {
         Swal.fire('Sucesso!', 'Pedido atualizado', 'success');
-        this.router.navigate(['list-pedido']);
+        this.router.navigate(['list-pedidos']);
       },
         error => { });
   }
@@ -84,7 +84,7 @@ export class EditPedidoComponent implements OnInit {
         this.pedidoService.delete(this.pedido.id)
           .subscribe(
             response => {
-              this.router.navigate(['/list-pedido']);
+              this.router.navigate(['/list-pedidos']);
               Swal.fire('Sucesso!', 'Pedido removido', 'success');
             },
             err => {
@@ -97,6 +97,6 @@ export class EditPedidoComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/list-pedido']);
+    this.router.navigate(['/list-pedidos']);
   }
 }

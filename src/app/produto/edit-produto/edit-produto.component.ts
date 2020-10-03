@@ -68,7 +68,7 @@ export class EditProdutoComponent implements OnInit {
       .pipe(first())
       .subscribe(response => {
         Swal.fire('Sucesso!', 'Produto atualizado', 'success');
-        this.router.navigate(['list-produto']);
+        this.router.navigate(['list-produtos']);
       },
         error => { });
   }
@@ -87,7 +87,7 @@ export class EditProdutoComponent implements OnInit {
         this.produtoService.delete(this.produto.id)
           .subscribe(
             response => {
-              this.router.navigate(['/list-produto']);
+              this.router.navigate(['/list-produtos']);
               Swal.fire('Sucesso!', 'Produto removido', 'success');
             },
             err => {
@@ -100,6 +100,6 @@ export class EditProdutoComponent implements OnInit {
   }
 
   cancel() {
-    this.router.navigate(['/list-produto']);
+    this.router.navigate(['/list-produtos']);
   }
 }

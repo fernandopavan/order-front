@@ -1,6 +1,6 @@
 import { PessoaFisica } from './pessoaFisica';
 
-export interface PessoaFisicaPage {
+export class PessoaFisicaPage {
     content: PessoaFisica[];
     totalPages: number;
     totalElements: number;

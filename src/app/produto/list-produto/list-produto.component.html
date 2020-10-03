@@ -1,7 +1,7 @@
 <div class="list-group users-list">
 
   <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-9">
       <div class="input-group">
         <input type="text" class="form-control" [(ngModel)]="searchValue" [ngModelOptions]="{standalone: true}"
           placeholder="Busque pela descrição..." (keydown.enter)="searchBy()">
@@ -13,13 +13,18 @@
         </div>
       </div>
     </div>
+    <div class="col-md-3">
+      <button mat-raised-button class="submit-button" type="button" color="primary" (click)="add()">
+        <ion-icon name="add"></ion-icon> Novo
+      </button>
+    </div>
   </div>
   <br>
 
   <div *ngFor="let produto of produtos" class="list-group-item list-group-item-action flex-column align-items-start">
     <div class="row">
       <div class="col col-md-9 text-col">
-        <h5 class="mb-1">{{produto.descricao}} - {{produto.preco}}</h5>
+        <h5 class="mb-1">{{produto.descricao}} - R$ {{produto.preco}}</h5>
         <small>{{produto.servico ? 'Serviço' : 'Produto'}} - {{produto.inativo ? 'Inativo' : 'Ativo'}}</small>
       </div>
 

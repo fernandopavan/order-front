@@ -29,6 +29,10 @@ export class ListProdutoComponent implements OnInit {
     this.router.navigate(['/edit-produto/' + item.id]);
   }
 
+  add() {
+    this.router.navigate(['/add-produto']);
+  }
+
   searchBy() {
     if (this.searchValue == null) {
       this.ngOnInit();

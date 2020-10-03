@@ -1,6 +1,6 @@
 import { PedidoProduto } from './pedidoProduto';
 
-export interface Pedido {
+export class Pedido {
     id: number;
     descricao: string;
     desconto: number;
