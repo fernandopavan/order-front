@@ -22,18 +22,15 @@
                 </ng-container>
               </div>
             </div>
-
-            <div class="col-md-4">
+            <div class="col-md-2">
               <div class="form-group">
                 <mat-form-field class="input-style">
-                  <input matInput placeholder="Desconto %" type="number" class="form-control" formControlName="desconto">
+                  <input [readonly]="addForm.get('fechado').value || false" matInput placeholder="Desconto %" type="number" class="form-control"
+                    formControlName="desconto">
                 </mat-form-field>
               </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div class="col-md-3">
+            </div>            
+            <div class="col-md-2">
               <div class="form-group">
                 <label for="fechado">
                   <input id="fechado" type="checkbox" class="input-style" formControlName="fechado">
@@ -46,8 +43,11 @@
             <div class="col-md-8">
               <div class="form-group">
                 <mat-form-field class="input-style">
-                  <mat-select placeholder="Produtos" class="form-control" [(ngModel)]="produto" [ngModelOptions]="{standalone: true}" >
-                    <mat-option *ngFor="let produto of produtos" value="{{produto.id}}">{{produto.descricao}} - R$ {{produto.preco}} - {{produto.servico ? 'Serviço' : 'Produto'}}</mat-option>
+                  <mat-select placeholder="Produtos" class="form-control" [(ngModel)]="produto"
+                    [ngModelOptions]="{standalone: true}">
+                    <mat-option [disabled]="produto.inativo" *ngFor="let produto of produtos" [value]="produto">
+                      {{produto.descricao}} - R$ {{produto.preco}} - {{produto.servico ? 'Serviço' : 'Produto'}}
+                    </mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -55,15 +55,50 @@
             <div class="col-md-2">
               <div class="form-group">
                 <mat-form-field class="input-style">
-                  <input matInput placeholder="Quant." type="number" class="form-control" [(ngModel)]="quantidade" [ngModelOptions]="{standalone: true}" >
+                  <input matInput placeholder="Quant." type="number" class="form-control" [(ngModel)]="quantidade"
+                    [ngModelOptions]="{standalone: true}">
                 </mat-form-field>
               </div>
-            </div>            
+            </div>
             <div class="col-md-2">
-                <button mat-raised-button class="submit-button" color="primary" type="button" (click)="addProduto()" >Add</button>
+              <button mat-raised-button class="submit-button" color="primary" type="button"
+                (click)="addProduto()">Add</button>
             </div>
           </div>
 
+          <br>
+          <br>
+
+          <div class="col-md-12">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Produto/Serviço</th>
+                  <th scope="col">Inativo</th>
+                  <th scope="col">Quant.</th>
+                  <th scope="col">Remover</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of pedidoProdutos; index as i">
+                  <td>{{ i + 1 }}</td>
+                  <td>{{ p.produto.descricao }}</td>
+                  <td>{{ p.produto.inativo ? 'Inativo' : 'Ativo' }}</td>
+                  <td>{{ p.quantidade }}</td>
+                  <td>
+                    <button mat-raised-button class="submit-button" color="primary" type="button"
+                      (click)="removeProduto(p.produto.id)">Remover</button></td>
+                </tr>
+                <tr *ngIf="pedidoProdutos.length == 0">
+                  <td colspan="5" style="text-align: center;">Sem produtos</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <br>
+          <br>
 
           <div class="row submit-button-container">
             <div class="col-md-4">
@@ -78,13 +113,6 @@
           </div>
 
         </form>
-
-        <li *ngFor="let p of pedidoProdutos">
-          {{ p.produto.descricao }}
-          {{ p.produto }}
-          {{ p.quantidade }}
-        </li>
-        
       </div>
     </div>
   </div>

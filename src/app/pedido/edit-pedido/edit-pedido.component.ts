@@ -5,9 +5,13 @@ import { MatDialog, DateAdapter, MAT_DATE_LOCALE } from '@angular/material';
 import { first } from 'rxjs/operators';
 import { Pedido } from '../../model/pedido';
 import { PedidoService } from '../../service/pedido.service';
+import { ProdutoService } from '../../service/produto.service';
 import Swal from 'sweetalert2';
 import { CustomDateAdapter } from 'src/app/custom.date.adapter';
 import { Platform } from '@angular/cdk/platform';
+
+import { Produto } from '../../model/produto';
+import { PedidoProduto } from '../../model/PedidoProduto';
 
 @Component({
   selector: 'app-edit-pedido',
@@ -24,10 +28,16 @@ export class EditPedidoComponent implements OnInit {
   pedido: Pedido;
   editForm: FormGroup;
 
+  produtos: Produto[] = [];
+  quantidade: number;
+  produto: Produto;
+  pedidoProdutos: PedidoProduto[] = [];
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private pedidoService: PedidoService,
+    public produtoService: ProdutoService,
     private router: Router,
     public dialog: MatDialog
   ) { }
@@ -40,11 +50,14 @@ export class EditPedidoComponent implements OnInit {
   };
 
   ngOnInit() {
+    this.getProdutos();
+
     this.route.data.subscribe(routeData => {
       const data = routeData.data;
       if (data) {
         this.pedido = data;
         this.pedido.id = data.id;
+        this.pedidoProdutos = data.pedidoProdutos;
         this.createForm();
       }
     });
@@ -56,11 +69,12 @@ export class EditPedidoComponent implements OnInit {
       descricao: [this.pedido.descricao, Validators.required],
       desconto: [this.pedido.desconto],
       fechado: [this.pedido.fechado],
-      pedidoProdutos: [this.pedido.pedidoProdutos],
+      pedidoProdutos: [[]],
     });
   }
 
   onSubmit() {
+    this.editForm.value.pedidoProdutos = this.pedidoProdutos;
     this.pedidoService.update(this.editForm.value)
       .pipe(first())
       .subscribe(response => {
@@ -68,6 +82,29 @@ export class EditPedidoComponent implements OnInit {
         this.router.navigate(['list-pedidos']);
       },
         error => { });
+  }
+
+  getProdutos(): void {
+    this.produtoService.findBy("").subscribe(response => {
+      this.produtos = response;
+    });
+  }
+
+  addProduto() {
+    let pedidoProduto = new PedidoProduto();
+    pedidoProduto.produto = this.produto;
+    pedidoProduto.quantidade = this.quantidade || 1;
+
+    if (this.pedidoProdutos.findIndex((item) => item.produto.id === pedidoProduto.produto.id) < 0) {
+      this.pedidoProdutos.push(pedidoProduto);
+    }
+
+    this.produto = null;
+    this.quantidade = 0;
+  }
+
+  removeProduto(id) {
+    this.pedidoProdutos = this.pedidoProdutos.filter(item => item.produto.id != id);
   }
 
   delete() {

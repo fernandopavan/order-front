@@ -36,6 +36,14 @@
     </div>
   </div>
 
+  <div *ngIf="produtos.length == 0" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col col-md-12 text-col">
+        <h5 class="mb-1">Ainda não possui produtos cadastrados</h5>
+      </div>
+    </div>
+  </div>
+
   <nav aria-label="...">
     <ul style="margin-top:10px;" class="pagination" *ngIf="produtos.length>0">
       <li *ngFor="let page of ' '.repeat(pageProduto.totalPages).split(''), let i = index " (click)="onSelect(i)"

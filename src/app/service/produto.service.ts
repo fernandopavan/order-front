@@ -30,6 +30,10 @@ export class ProdutoService {
     return this.http.get<Produto[]>(`${API_CONFIG.baseUrl}/produtos/descricao?descricao=${descricao}`);
   }
 
+  // findAllSelect(): Observable<Produto[]> {
+  //   return this.http.get<Produto[]>(`${API_CONFIG.baseUrl}/produtos`);
+  // }
+
   findAll(page: number = 0, limit: number = 10): Observable<ProdutoPage> {
     return this.http.get<ProdutoPage>(`${API_CONFIG.baseUrl}/produtos/?page=${page}&limit=${limit}`);
   }

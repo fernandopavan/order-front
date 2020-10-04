@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { Router } from '@angular/router';
 import { MatDialog, MAT_DATE_LOCALE, DateAdapter } from '@angular/material';
 import { PedidoService } from '../../service/pedido.service';
+import { ProdutoService } from '../../service/produto.service';
 import Swal from 'sweetalert2';
 import { CustomDateAdapter } from 'src/app/custom.date.adapter';
 import { Platform } from '@angular/cdk/platform';
@@ -26,17 +27,14 @@ export class AddPedidoComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     public dialog: MatDialog,
+    public produtoService: ProdutoService,
     private pedidoService: PedidoService) { }
 
-  produtos: Produto[] = [
-      {id: 1, descricao: "teste1", preco: 12.1, servico: true, inativo: false },
-      {id: 3, descricao: "teste3", preco: 12.4, servico: true, inativo: false },
-      {id: 2, descricao: "teste2", preco: 12.3, servico: true, inativo: false }
-  ];
-
+  produtos: Produto[] = [];
   quantidade: number;
   produto: Produto;
   pedidoProdutos: PedidoProduto[] = [];
+
   addForm: FormGroup;
 
   validationMessages = {
@@ -48,10 +46,11 @@ export class AddPedidoComponent implements OnInit {
 
   ngOnInit() {
     this.createForm();
+    this.getProdutos();
   }
 
-  onSubmit() {    
-    this.addForm.value.pedidoProdutos.push(this.pedidoProdutos);
+  onSubmit() {
+    this.addForm.value.pedidoProdutos = this.pedidoProdutos;
     this.pedidoService.create(this.addForm.value)
       .subscribe(data => {
         this.resetFields();
@@ -60,13 +59,27 @@ export class AddPedidoComponent implements OnInit {
       });
   }
 
+  getProdutos(): void {
+    this.produtoService.findBy("").subscribe(response => {
+      this.produtos = response;
+    });
+  }
+
   addProduto() {
     let pedidoProduto = new PedidoProduto();
     pedidoProduto.produto = this.produto;
-    pedidoProduto.quantidade = this.quantidade;     
-    this.pedidoProdutos.push(pedidoProduto);
+    pedidoProduto.quantidade = this.quantidade || 1;
+
+    if (this.pedidoProdutos.findIndex((item) => item.produto.id === pedidoProduto.produto.id) < 0) {
+      this.pedidoProdutos.push(pedidoProduto);
+    }
+
     this.produto = null;
-    this.quantidade = 0; 
+    this.quantidade = 0;
+  }
+
+  removeProduto(id) { 
+    this.pedidoProdutos = this.pedidoProdutos.filter(item => item.produto.id != id);
   }
 
   back() {
