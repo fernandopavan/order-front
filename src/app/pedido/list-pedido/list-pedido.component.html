@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col col-md-9 text-col">
         <h5 class="mb-1">{{pedido.descricao}} - Valor total: R$ {{pedido.valorTotal}} ({{pedido.fechado ? 'FECHADO' : 'ABERTO'}})</h5>
-        <small>Data: {{pedido.dataHora}}  - Desconto: {{pedido.desconto}}</small>
+        <small>Data: {{pedido.dataHora}}  - Desconto: {{pedido.desconto}}% (no produto)</small>
       </div>
       <div class="col col-md-3 actions-col">
         <button class="btn btn-outline-primary action" (click)="viewDetails(pedido)" type="button">

@@ -11,7 +11,7 @@ import { CustomDateAdapter } from 'src/app/custom.date.adapter';
 import { Platform } from '@angular/cdk/platform';
 
 import { Produto } from '../../model/produto';
-import { PedidoProduto } from '../../model/PedidoProduto';
+import { PedidoProduto } from '../../model/pedidoProduto';
 
 @Component({
   selector: 'app-edit-pedido',
