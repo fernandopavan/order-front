@@ -1,3 +1,3 @@
 export const API_CONFIG = {
-    baseUrl: 'https://order--api.herokuapp.com/api'
+    baseUrl: 'http://localhost:8080/api'
 };
